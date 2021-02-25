@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c78bf29c-1083-4ada-9b01-08133c293fd2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/custom-recipes/google-translate/recipe.py" beforeDir="false" afterPath="$PROJECT_DIR$/custom-recipes/google-translate/recipe.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python-lib/google_translate_api_formatting.py" beforeDir="false" afterPath="$PROJECT_DIR$/python-lib/google_translate_api_formatting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parameter-sets/api-configuration/parameter-set.json" beforeDir="false" afterPath="$PROJECT_DIR$/parameter-sets/api-configuration/parameter-set.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +40,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -67,7 +73,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1614267678949</updated>
-      <workItem from="1614267681581" duration="1225000" />
+      <workItem from="1614267681581" duration="2092000" />
     </task>
     <servers />
   </component>

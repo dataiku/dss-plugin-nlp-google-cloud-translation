@@ -160,6 +160,9 @@ dmypy.json
 # Output files from R CMD build
 /*.tar.gz
 
+# Intellij files
+.idea
+
 # Output files from R CMD check
 /*.Rcheck/
 
