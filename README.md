@@ -1,5 +1,9 @@
-# Plugin Template
+# Google Translation API Plugin
 
-This repository is a template for developers to create Dataiku DSS plugins from GitHub.
+This Dataiku DSS plugin provides a recipes to call the [basic Google Translation API](https://cloud.google.com/translate/).
 
-Use it and adapt it as you wish, and have fun with Dataiku!
+Documentation: https://www.dataiku.com/product/plugins/google-cloud-translation/
+
+### License
+
+This plugin is distributed under the Apache License version 2.0.

@@ -1,17 +1,18 @@
 {
-    "id": "your-plugin-id",
-    "version": "0.1.0",
+    "id": "google-cloud-translation",
+    "version": "1.0.0",
     "meta": {
-        "label": "Your plugin label",
-        "category": "Your category (optional)",
-        "description": "Your description (keep it short and simple)",
-        "author": "Organization (firstName LASTNAME)",
-        "icon": "icon-font-awesome-3.2.1",
+        "label": "Google Cloud Translation",
+        "category": "Natural Language Processing",
+        "description": "Use Google Cloud basic translation API to perform translation",
+        "author": "Dataiku (Alex COMBESSIE, Arnaud d'Esquerre)",
+        "icon": "icon-gcp-translation-api icon-cloud",
         "licenseInfo": "Apache Software License",
-        "url": "https://www.dataiku.com/product/plugins/your-plugin-id/",
+        "url": "https://www.dataiku.com/product/plugins/google-cloud-translation/",
         "tags": [
-            "myTag"
-        ],
-        "supportLevel": "NOT_SUPPORTED"
+            "Google",
+            "Cloud",
+            "NLP"
+        ]
     }
 }
