@@ -28,7 +28,7 @@ target_language = get_recipe_config().get("target_language", "")
 source_language = get_recipe_config().get("source_language", "").replace("auto", "")
 
 # Params for parallelization
-column_prefix = ""
+column_prefix = "translation_api"
 parallel_workers = api_configuration_preset.get("parallel_workers")
 error_handling = ErrorHandlingEnum[get_recipe_config().get("error_handling")]
 

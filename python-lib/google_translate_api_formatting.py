@@ -92,7 +92,7 @@ class TranslationAPIFormatter(GenericAPIFormatter):
         error_handling: ErrorHandlingEnum = ErrorHandlingEnum.LOG,
     ):
         super().__init__(input_df, column_prefix, error_handling)
-        self.translated_text_column_name = "{prefix}_{input_column}_translated_to_{language}".format(prefix=self.column_prefix, input_column=input_column, language=target_language)
+        self.translated_text_column_name = "{input_column}_{language}".format(input_column=input_column, language=target_language.replace('-','_'))
         self.source_language = source_language
         if self.translated_text_column_name in input_df:
             raise Exception("Conflict in column names. {} already exists".format(self.translated_text_column_name))
@@ -110,6 +110,3 @@ class TranslationAPIFormatter(GenericAPIFormatter):
             row["detected_source_language"] = response.get('detectedSourceLanguage')
         row[self.translated_text_column_name] = response.get('translatedText')
         return row
-
-
-
