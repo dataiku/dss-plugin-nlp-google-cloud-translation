@@ -51,7 +51,7 @@ input_df = input_dataset.get_dataframe()
 def call_translation_api(row: Dict, text_column: AnyStr, target_language: AnyStr, source_language: AnyStr =None) -> AnyStr:
     text = row[text_column]
     if not isinstance(text, str) or str(text).strip() == "":
-        return ""
+        return json.dumps({})
     else:
         response = client.translate(text, target_language, source_language=source_language)
         return json.dumps(response)

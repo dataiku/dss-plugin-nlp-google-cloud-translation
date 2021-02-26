@@ -107,6 +107,6 @@ class TranslationAPIFormatter(GenericAPIFormatter):
         raw_response = row[self.api_column_names.response]
         response = safe_json_loads(raw_response, self.error_handling)
         if not self.source_language:
-            row["detected_source_language"] = response.get('detectedSourceLanguage')
-        row[self.translated_text_column_name] = response.get('translatedText')
+            row["detected_source_language"] = response.get('detectedSourceLanguage', None)
+        row[self.translated_text_column_name] = response.get('translatedText', None)
         return row
