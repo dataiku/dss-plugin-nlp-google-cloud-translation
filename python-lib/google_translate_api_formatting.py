@@ -18,27 +18,6 @@ from plugin_io_utils import (
 
 
 # ==============================================================================
-# CONSTANT DEFINITION
-# ==============================================================================
-
-
-class EntityTypeEnum(Enum):
-    ADDRESS = "Address"
-    CONSUMER_GOOD = "Consumer good"
-    DATE = "Date"
-    EVENT = "Event"
-    LOCATION = "Location"
-    NUMBER = "Number"
-    ORGANIZATION = "Organization"
-    OTHER = "Other"
-    PERSON = "Person"
-    PHONE_NUMBER = "Phone number"
-    PRICE = "Price"
-    UNKNOWN = "Unknown"
-    WORK_OF_ART = "Work of art"
-
-
-# ==============================================================================
 # CLASS AND FUNCTION DEFINITION
 # ==============================================================================
 
@@ -92,16 +71,17 @@ class TranslationAPIFormatter(GenericAPIFormatter):
         error_handling: ErrorHandlingEnum = ErrorHandlingEnum.LOG,
     ):
         super().__init__(input_df, column_prefix, error_handling)
-        self.translated_text_column_name = "{input_column}_{language}".format(input_column=input_column, language=target_language.replace('-','_'))
+        self.translated_text_column_name = generate_unique(
+            "{input_column}_{language}".format(input_column=input_column, language=target_language.replace('-', '_')),
+            input_df.columns, column_prefix)
         self.source_language = source_language
-        if self.translated_text_column_name in input_df:
-            raise Exception("Conflict in column names. {} already exists".format(self.translated_text_column_name))
+        self.input_column = input_column
         self._compute_column_description()
 
     def _compute_column_description(self):
-        self.column_description_dict[
-            self.translated_text_column_name
-        ] = "Input column text translated to the desired language by the google translate api"
+        self.column_description_dict[self.translated_text_column_name] = \
+            "{language} translation of the {col} column by the Google Translation API".format(
+            language=self.source_language, col=self.input_column)
 
     def format_row(self, row: Dict) -> Dict:
         raw_response = row[self.api_column_names.response]

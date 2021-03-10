@@ -25,7 +25,7 @@
             "name": "separator_api_quota",
             "label": "API quota",
             "type": "SEPARATOR",
-            "description": "Throttling to stay within the quota defined by Google Cloud: https://cloud.google.com/natural-language/quotas"
+            "description": "Throttling to stay within the quota defined by Google Cloud: https://cloud.google.com/translate/quotas"
         },
         {
             "name": "api_quota_period",
