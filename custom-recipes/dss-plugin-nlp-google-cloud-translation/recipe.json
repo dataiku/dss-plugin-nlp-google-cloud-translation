@@ -952,33 +952,11 @@
       "mandatory": true
     },
     {
-      "name": "separator_advanced",
-      "label": "Advanced",
-      "type": "SEPARATOR"
-    },
-    {
-      "name": "expert",
-      "label": "Expert mode",
+      "name": "fail_on_error",
+      "label": "Fail on error",
       "type": "BOOLEAN",
-      "defaultValue": false
-    },
-    {
-      "name": "error_handling",
-      "label": "Error handling",
-      "visibilityCondition": "model.expert",
-      "type": "SELECT",
-      "selectChoices": [
-        {
-          "value": "LOG",
-          "label": "Log"
-        },
-        {
-          "value": "FAIL",
-          "label": "Fail"
-        }
-      ],
-      "description": "Log API errors to the output or fail with an exception on any API error",
-      "defaultValue": "LOG",
+      "description": "Abort execution if any issues are raised. By default, errors will be logged per record in the output.",
+      "defaultValue": false,
       "mandatory": true
     }
   ],
