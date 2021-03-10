@@ -76,12 +76,13 @@ class TranslationAPIFormatter(GenericAPIFormatter):
             input_df.columns, column_prefix)
         self.source_language = source_language
         self.input_column = input_column
+        self.target_language = target_language
         self._compute_column_description()
 
     def _compute_column_description(self):
         self.column_description_dict[self.translated_text_column_name] = \
             "{language} translation of the {col} column by the Google Translation API".format(
-            language=self.source_language, col=self.input_column)
+            language=self.target_language, col=self.input_column)
 
     def format_row(self, row: Dict) -> Dict:
         raw_response = row[self.api_column_names.response]
