@@ -1,9 +1,15 @@
-# Google Translation API Plugin
+# Google Cloud Translation Plugin
 
-This Dataiku DSS plugin provides a recipes to call the [basic Google Translation API](https://cloud.google.com/translate/).
+![Build status](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/actions/workflows/auto-make.yml/badge.svg) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/dataiku/dss-plugin-nlp-google-cloud-translation?logo=github) ![Support level](https://img.shields.io/badge/support-Unsupported-orange)
 
-Documentation: https://www.dataiku.com/product/plugins/google-cloud-translation/
+This Dataiku DSS plugin provides a recipe to translate a text column to another language with [Google Cloud Translation](https://cloud.google.com/translate/docs/basic/translating-text).
 
-### License
+Documentation: https://www.dataiku.com/product/plugins/nlp-google-cloud-translation/
 
-This plugin is distributed under the Apache License version 2.0.
+## Release notes
+
+See the [changelog](CHANGELOG.md) for a history of notable changes to this plugin.
+
+## License
+
+This plugin is distributed under the [Apache License version 2.0](LICENSE).
