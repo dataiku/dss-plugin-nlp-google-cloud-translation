@@ -16,7 +16,7 @@ from plugin_io_utils import (
     move_api_columns_to_end,
 )
 
-code_to_language = {'af': 'Afrikaans', 'sq': 'Albanian', 'am': 'Amharic', 'ar': 'Arabic', 'hy': 'Armenian',
+CODE_TO_LANGUAGE = {'af': 'Afrikaans', 'sq': 'Albanian', 'am': 'Amharic', 'ar': 'Arabic', 'hy': 'Armenian',
                     'az': 'Azerbaijani', 'eu': 'Basque', 'be': 'Belarusian', 'bn': 'Bengali', 'bs': 'Bosnian',
                     'bg': 'Bulgarian', 'ca': 'Catalan', 'ceb': 'Cebuano', 'zh-CN': 'Chinese (Simplified)',
                     'zh-TW': 'Chinese (Traditional)', 'co': 'Corsican', 'hr': 'Croatian', 'cs': 'Czech', 'da': 'Danish',
@@ -103,7 +103,7 @@ class TranslationAPIFormatter(GenericAPIFormatter):
     def _compute_column_description(self):
         self.column_description_dict[self.translated_text_column_name] = \
             "{language} translation of the '{col}' column by Google Cloud Translation".format(
-            language=code_to_language[self.target_language], col=self.input_column)
+            language=CODE_TO_LANGUAGE[self.target_language], col=self.input_column)
         if not self.source_language:
             self.column_description_dict[
              "detected_source_language"] = "Detected source language of the '{col}'" \
