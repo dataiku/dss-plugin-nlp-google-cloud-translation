@@ -94,7 +94,7 @@ def safe_json_loads(
 
 
 def move_api_columns_to_end(
-    df: pd.DataFrame, api_column_names: NamedTuple, error_handling: ErrorHandlingEnum = ErrorHandlingEnum.LOG
+    df: pd.DataFrame, api_column_names: NamedTuple, error_handling: ErrorHandlingEnum = ErrorHandlingEnum.LOG,
 ) -> pd.DataFrame:
     """
     Move non-human-readable API columns to the end of the dataframe

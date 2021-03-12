@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Module with classes to format results from the Google NLP API"""
+"""Module with classes to format results from the Google Cloud Translation API"""
 
 import logging
 import pandas as pd
-import json
-from enum import Enum
-from typing import AnyStr, Dict, List, Union
+from typing import AnyStr, Dict
 
 from plugin_io_utils import (
     API_COLUMN_NAMES_DESCRIPTION_DICT,
@@ -16,36 +14,117 @@ from plugin_io_utils import (
     move_api_columns_to_end,
 )
 
-LANGUAGE_CODE_LABELS = {'af': 'Afrikaans', 'sq': 'Albanian', 'am': 'Amharic', 'ar': 'Arabic', 'hy': 'Armenian',
-                        'az': 'Azerbaijani', 'eu': 'Basque', 'be': 'Belarusian', 'bn': 'Bengali', 'bs': 'Bosnian',
-                        'bg': 'Bulgarian', 'ca': 'Catalan', 'ceb': 'Cebuano', 'zh-CN': 'Chinese (Simplified)',
-                        'zh-TW': 'Chinese (Traditional)', 'co': 'Corsican', 'hr': 'Croatian', 'cs': 'Czech',
-                        'da': 'Danish',
-                        'nl': 'Dutch', 'en': 'English', 'eo': 'Esperanto', 'et': 'Estonian', 'fi': 'Finnish',
-                        'fr': 'French', 'fy': 'Frisian', 'gl': 'Galician', 'ka': 'Georgian', 'de': 'German',
-                        'el': 'Greek',
-                        'gu': 'Gujarati', 'ht': 'Haitian', 'ha': 'Hausa', 'haw': 'Hawaiian', 'he': 'Hebrew',
-                        'hi': 'Hindi',
-                        'hmn': 'Hmong', 'hu': 'Hungarian', 'is': 'Icelandic', 'ig': 'Igbo', 'id': 'Indonesian',
-                        'ga': 'Irish', 'it': 'Italian', 'ja': 'Japanese', 'jv': 'Javanese', 'kn': 'Kannada',
-                        'kk': 'Kazakh',
-                        'km': 'Khmer', 'rw': 'Kinyarwanda', 'ko': 'Korean', 'ku': 'Kurdish', 'ky': 'Kyrgyz',
-                        'lo': 'Lao',
-                        'la': 'Latin', 'lv': 'Latvian', 'lt': 'Lithuanian', 'lb': 'Luxembourgish', 'mk': 'Macedonian',
-                        'mg': 'Malagasy', 'ms': 'Malay', 'ml': 'Malayalam', 'mt': 'Maltese', 'mi': 'Maori',
-                        'mr': 'Marathi',
-                        'mn': 'Mongolian', 'my': 'Myanmar', 'ne': 'Nepali', 'no': 'Norwegian', 'ny': 'Nyanja',
-                        'or': 'Odia',
-                        'ps': 'Pashto', 'fa': 'Persian', 'pl': 'Polish', 'pt': 'Portuguese', 'pa': 'Punjabi',
-                        'ro': 'Romanian', 'ru': 'Russian', 'sm': 'Samoan', 'gd': 'Scots', 'sr': 'Serbian',
-                        'st': 'Sesotho',
-                        'sn': 'Shona', 'sd': 'Sindhi', 'si': 'Sinhala', 'sk': 'Slovak', 'sl': 'Slovenian',
-                        'so': 'Somali',
-                        'es': 'Spanish', 'su': 'Sundanese', 'sw': 'Swahili', 'sv': 'Swedish', 'tl': 'Tagalog',
-                        'tg': 'Tajik', 'ta': 'Tamil', 'tt': 'Tatar', 'te': 'Telugu', 'th': 'Thai', 'tr': 'Turkish',
-                        'tk': 'Turkmen', 'uk': 'Ukrainian', 'ur': 'Urdu', 'ug': 'Uyghur', 'uz': 'Uzbek',
-                        'vi': 'Vietnamese',
-                        'cy': 'Welsh', 'xh': 'Xhosa', 'yi': 'Yiddish', 'yo': 'Yoruba', 'zu': 'Zulu'}
+LANGUAGE_CODE_LABELS = {
+    "af": "Afrikaans",
+    "sq": "Albanian",
+    "am": "Amharic",
+    "ar": "Arabic",
+    "hy": "Armenian",
+    "az": "Azerbaijani",
+    "eu": "Basque",
+    "be": "Belarusian",
+    "bn": "Bengali",
+    "bs": "Bosnian",
+    "bg": "Bulgarian",
+    "ca": "Catalan",
+    "ceb": "Cebuano",
+    "zh-CN": "Chinese (Simplified)",
+    "zh-TW": "Chinese (Traditional)",
+    "co": "Corsican",
+    "hr": "Croatian",
+    "cs": "Czech",
+    "da": "Danish",
+    "nl": "Dutch",
+    "en": "English",
+    "eo": "Esperanto",
+    "et": "Estonian",
+    "fi": "Finnish",
+    "fr": "French",
+    "fy": "Frisian",
+    "gl": "Galician",
+    "ka": "Georgian",
+    "de": "German",
+    "el": "Greek",
+    "gu": "Gujarati",
+    "ht": "Haitian",
+    "ha": "Hausa",
+    "haw": "Hawaiian",
+    "he": "Hebrew",
+    "hi": "Hindi",
+    "hmn": "Hmong",
+    "hu": "Hungarian",
+    "is": "Icelandic",
+    "ig": "Igbo",
+    "id": "Indonesian",
+    "ga": "Irish",
+    "it": "Italian",
+    "ja": "Japanese",
+    "jv": "Javanese",
+    "kn": "Kannada",
+    "kk": "Kazakh",
+    "km": "Khmer",
+    "rw": "Kinyarwanda",
+    "ko": "Korean",
+    "ku": "Kurdish",
+    "ky": "Kyrgyz",
+    "lo": "Lao",
+    "la": "Latin",
+    "lv": "Latvian",
+    "lt": "Lithuanian",
+    "lb": "Luxembourgish",
+    "mk": "Macedonian",
+    "mg": "Malagasy",
+    "ms": "Malay",
+    "ml": "Malayalam",
+    "mt": "Maltese",
+    "mi": "Maori",
+    "mr": "Marathi",
+    "mn": "Mongolian",
+    "my": "Myanmar",
+    "ne": "Nepali",
+    "no": "Norwegian",
+    "ny": "Nyanja",
+    "or": "Odia",
+    "ps": "Pashto",
+    "fa": "Persian",
+    "pl": "Polish",
+    "pt": "Portuguese",
+    "pa": "Punjabi",
+    "ro": "Romanian",
+    "ru": "Russian",
+    "sm": "Samoan",
+    "gd": "Scots",
+    "sr": "Serbian",
+    "st": "Sesotho",
+    "sn": "Shona",
+    "sd": "Sindhi",
+    "si": "Sinhala",
+    "sk": "Slovak",
+    "sl": "Slovenian",
+    "so": "Somali",
+    "es": "Spanish",
+    "su": "Sundanese",
+    "sw": "Swahili",
+    "sv": "Swedish",
+    "tl": "Tagalog",
+    "tg": "Tajik",
+    "ta": "Tamil",
+    "tt": "Tatar",
+    "te": "Telugu",
+    "th": "Thai",
+    "tr": "Turkish",
+    "tk": "Turkmen",
+    "uk": "Ukrainian",
+    "ur": "Urdu",
+    "ug": "Uyghur",
+    "uz": "Uzbek",
+    "vi": "Vietnamese",
+    "cy": "Welsh",
+    "xh": "Xhosa",
+    "yi": "Yiddish",
+    "yo": "Yoruba",
+    "zu": "Zulu",
+}
 
 # ==============================================================================
 # CLASS AND FUNCTION DEFINITION
@@ -102,28 +181,29 @@ class TranslationAPIFormatter(GenericAPIFormatter):
     ):
         super().__init__(input_df, column_prefix, error_handling)
         self.translated_text_column_name = generate_unique(
-            "{input_column}_{language}".format(input_column=input_column, language=target_language.replace('-', '_')),
-            input_df.columns, None)
+            f"{input_column}_{target_language.replace('-', '_')}", input_df.columns, prefix=None
+        )
+        self.detected_language_column_name = generate_unique(f"{input_column}_language", input_df.columns, prefix=None)
         self.source_language = source_language
         self.input_column = input_column
         self.input_df_columns = input_df.columns
         self.target_language = target_language
+        self.target_language_label = LANGUAGE_CODE_LABELS[self.target_language]
         self._compute_column_description()
 
     def _compute_column_description(self):
-        self.column_description_dict[self.translated_text_column_name] = \
-            "{language} translation of the '{col}' column by Google Cloud Translation".format(
-            language=LANGUAGE_CODE_LABELS[self.target_language], col=self.input_column)
+        self.column_description_dict[
+            self.translated_text_column_name
+        ] = f"{self.target_language_label} translation of the '{self.input_column}' column by Google Cloud Translation"
         if not self.source_language:
             self.column_description_dict[
-             "detected_source_language"] = "Detected source language of the '{col}'" \
-                                          " column by Google Cloud Translation".format(col=self.input_column)
+                self.detected_language_column_name
+            ] = f"Detected language of the '{self.input_column}' column by Google Cloud Translation"
 
     def format_row(self, row: Dict) -> Dict:
         raw_response = row[self.api_column_names.response]
         response = safe_json_loads(raw_response, self.error_handling)
         if not self.source_language:
-            row["detected_source_language"] = generate_unique(response.get('detectedSourceLanguage', None),
-                                                              self.input_df_columns, None)
-        row[self.translated_text_column_name] = response.get('translatedText', None)
+            row[self.detected_language_column_name] = response.get("detectedSourceLanguage", "")
+        row[self.translated_text_column_name] = response.get("translatedText", "")
         return row

@@ -30,7 +30,7 @@
   "params": [
     {
       "name": "separator_input",
-      "label": "Input Parameters",
+      "label": "Input parameters",
       "type": "SEPARATOR"
     },
     {
