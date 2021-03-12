@@ -1,5 +1,5 @@
 {
-    "id": "google-cloud-translation",
+    "id": "nlp-google-cloud-translation",
     "version": "1.0.0",
     "meta": {
         "label": "Google Cloud Translation",

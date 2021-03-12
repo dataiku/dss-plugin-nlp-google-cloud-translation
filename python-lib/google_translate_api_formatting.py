@@ -16,6 +16,26 @@ from plugin_io_utils import (
     move_api_columns_to_end,
 )
 
+code_to_language = {'af': 'Afrikaans', 'sq': 'Albanian', 'am': 'Amharic', 'ar': 'Arabic', 'hy': 'Armenian',
+                    'az': 'Azerbaijani', 'eu': 'Basque', 'be': 'Belarusian', 'bn': 'Bengali', 'bs': 'Bosnian',
+                    'bg': 'Bulgarian', 'ca': 'Catalan', 'ceb': 'Cebuano', 'zh-CN': 'Chinese (Simplified)',
+                    'zh-TW': 'Chinese (Traditional)', 'co': 'Corsican', 'hr': 'Croatian', 'cs': 'Czech', 'da': 'Danish',
+                    'nl': 'Dutch', 'en': 'English', 'eo': 'Esperanto', 'et': 'Estonian', 'fi': 'Finnish',
+                    'fr': 'French', 'fy': 'Frisian', 'gl': 'Galician', 'ka': 'Georgian', 'de': 'German', 'el': 'Greek',
+                    'gu': 'Gujarati', 'ht': 'Haitian', 'ha': 'Hausa', 'haw': 'Hawaiian', 'he': 'Hebrew', 'hi': 'Hindi',
+                    'hmn': 'Hmong', 'hu': 'Hungarian', 'is': 'Icelandic', 'ig': 'Igbo', 'id': 'Indonesian',
+                    'ga': 'Irish', 'it': 'Italian', 'ja': 'Japanese', 'jv': 'Javanese', 'kn': 'Kannada', 'kk': 'Kazakh',
+                    'km': 'Khmer', 'rw': 'Kinyarwanda', 'ko': 'Korean', 'ku': 'Kurdish', 'ky': 'Kyrgyz', 'lo': 'Lao',
+                    'la': 'Latin', 'lv': 'Latvian', 'lt': 'Lithuanian', 'lb': 'Luxembourgish', 'mk': 'Macedonian',
+                    'mg': 'Malagasy', 'ms': 'Malay', 'ml': 'Malayalam', 'mt': 'Maltese', 'mi': 'Maori', 'mr': 'Marathi',
+                    'mn': 'Mongolian', 'my': 'Myanmar', 'ne': 'Nepali', 'no': 'Norwegian', 'ny': 'Nyanja', 'or': 'Odia',
+                    'ps': 'Pashto', 'fa': 'Persian', 'pl': 'Polish', 'pt': 'Portuguese', 'pa': 'Punjabi',
+                    'ro': 'Romanian', 'ru': 'Russian', 'sm': 'Samoan', 'gd': 'Scots', 'sr': 'Serbian', 'st': 'Sesotho',
+                    'sn': 'Shona', 'sd': 'Sindhi', 'si': 'Sinhala', 'sk': 'Slovak', 'sl': 'Slovenian', 'so': 'Somali',
+                    'es': 'Spanish', 'su': 'Sundanese', 'sw': 'Swahili', 'sv': 'Swedish', 'tl': 'Tagalog',
+                    'tg': 'Tajik', 'ta': 'Tamil', 'tt': 'Tatar', 'te': 'Telugu', 'th': 'Thai', 'tr': 'Turkish',
+                    'tk': 'Turkmen', 'uk': 'Ukrainian', 'ur': 'Urdu', 'ug': 'Uyghur', 'uz': 'Uzbek', 'vi': 'Vietnamese',
+                    'cy': 'Welsh', 'xh': 'Xhosa', 'yi': 'Yiddish', 'yo': 'Yoruba', 'zu': 'Zulu'}
 
 # ==============================================================================
 # CLASS AND FUNCTION DEFINITION
@@ -76,18 +96,24 @@ class TranslationAPIFormatter(GenericAPIFormatter):
             input_df.columns, None)
         self.source_language = source_language
         self.input_column = input_column
+        self.input_df_columns = input_df.columns
         self.target_language = target_language
         self._compute_column_description()
 
     def _compute_column_description(self):
         self.column_description_dict[self.translated_text_column_name] = \
-            "{language} translation of the {col} column by the Google Translation API".format(
-            language=self.target_language, col=self.input_column)
+            "{language} translation of the '{col}' column by Google Cloud Translation".format(
+            language=code_to_language[self.target_language], col=self.input_column)
+        if not self.source_language:
+            self.column_description_dict[
+             "detected_source_language"] = "Detected source language of the '{col}'" \
+                                          " column by Google Cloud Translation".format(col=self.input_column)
 
     def format_row(self, row: Dict) -> Dict:
         raw_response = row[self.api_column_names.response]
         response = safe_json_loads(raw_response, self.error_handling)
         if not self.source_language:
-            row["detected_source_language"] = response.get('detectedSourceLanguage', None)
+            row["detected_source_language"] = generate_unique(response.get('detectedSourceLanguage', None),
+                                                              self.input_df_columns, None)
         row[self.translated_text_column_name] = response.get('translatedText', None)
         return row
