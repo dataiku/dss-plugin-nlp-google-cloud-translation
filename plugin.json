@@ -5,11 +5,11 @@
         "label": "Google Cloud Translation",
         "category": "Natural Language Processing",
         "description": "Use Google Cloud Translation API to translate text data to another language",
-        "author": "Dataiku (Alex COMBESSIE, Arnaud d'Esquerre)",
+        "author": "Dataiku (Alex COMBESSIE, Arnaud D'ESQUERRE)",
         "icon": "icon-gcp-translation-api icon-cloud",
         "licenseInfo": "Apache Software License",
         "supportLevel": "NOT_SUPPORTED",
-        "url": "https://www.dataiku.com/product/plugins/google-cloud-translation/",
+        "url": "https://www.dataiku.com/product/plugins/nlp-google-cloud-translation/",
         "tags": [
             "Google",
             "Cloud",
