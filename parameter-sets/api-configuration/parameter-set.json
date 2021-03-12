@@ -2,7 +2,7 @@
     "meta": {
         "label": "API configuration",
         "description": "Define presets for users to call the API with specific credentials, quota and parallelization parameters",
-        "icon": "icon-gcp-natural-language-api icon-cloud"
+        "icon": "icon-gcp-translation-api icon-cloud"
     },
     "defaultDefinableAtProjectLevel": true,
     "defaultDefinableInline": false,
@@ -12,7 +12,7 @@
             "name": "separator_authentification",
             "label": "Authentification",
             "type": "SEPARATOR",
-            "description": "Please refer to the Google Cloud documentation: https://cloud.google.com/natural-language/docs/setup"
+            "description": "Please refer to the Google Cloud documentation: https://cloud.google.com/translate/docs/setup"
         },
         {
             "name": "gcp_service_account_key",
@@ -25,7 +25,7 @@
             "name": "separator_api_quota",
             "label": "API quota",
             "type": "SEPARATOR",
-            "description": "Throttling to stay within the quota defined by Google Cloud: https://cloud.google.com/natural-language/quotas"
+            "description": "Throttling to stay within the quota defined by Google Cloud: https://cloud.google.com/translate/quotas"
         },
         {
             "name": "api_quota_period",
@@ -53,7 +53,7 @@
         {
             "name": "parallel_workers",
             "label": "Concurrency",
-            "description": "Number of threads calling the API in parallel (maximum 100). Increase to speed-up computation within the quota defined above.",
+            "description": "Number of threads calling the API in parallel (max 100). Increase to speed-up computation within the quota defined above.",
             "type": "INT",
             "mandatory": true,
             "defaultValue": 4,

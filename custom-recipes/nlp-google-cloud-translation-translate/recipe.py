@@ -30,7 +30,7 @@ source_language = get_recipe_config().get("source_language", "").replace("auto",
 # Params for parallelization
 column_prefix = "translation_api"
 parallel_workers = api_configuration_preset.get("parallel_workers")
-error_handling = ErrorHandlingEnum[get_recipe_config().get("error_handling")]
+error_handling = ErrorHandlingEnum.FAIL if get_recipe_config().get("fail_on_error") else ErrorHandlingEnum.LOG
 
 # Params for translation
 client = get_client(api_configuration_preset.get("gcp_service_account_key"))

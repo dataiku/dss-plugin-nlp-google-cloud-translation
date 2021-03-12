@@ -161,7 +161,7 @@ dmypy.json
 /*.tar.gz
 
 # Idea files
-/.idea/
+.idea/
 
 # Output files from R CMD check
 /*.Rcheck/

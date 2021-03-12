@@ -1,7 +1,7 @@
 {
     "acceptedPythonInterpreters": [
         "PYTHON36",
-        "PYTHON35"
+        "PYTHON37"
     ],
     "forceConda": false,
     "installCorePackages": true,
