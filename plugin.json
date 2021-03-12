@@ -1,14 +1,15 @@
 {
-    "id": "google-cloud-translation",
+    "id": "nlp-google-cloud-translation",
     "version": "1.0.0",
     "meta": {
         "label": "Google Cloud Translation",
         "category": "Natural Language Processing",
-        "description": "Use Google Cloud basic translation API to perform translation",
-        "author": "Dataiku (Alex COMBESSIE, Arnaud d'Esquerre)",
+        "description": "Use Google Cloud Translation API to translate text data to another language",
+        "author": "Dataiku (Alex COMBESSIE, Arnaud D'ESQUERRE)",
         "icon": "icon-gcp-translation-api icon-cloud",
         "licenseInfo": "Apache Software License",
-        "url": "https://www.dataiku.com/product/plugins/google-cloud-translation/",
+        "supportLevel": "NOT_SUPPORTED",
+        "url": "https://www.dataiku.com/product/plugins/nlp-google-cloud-translation/",
         "tags": [
             "Google",
             "Cloud",
