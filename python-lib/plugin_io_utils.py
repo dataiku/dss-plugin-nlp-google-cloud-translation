@@ -48,7 +48,7 @@ def generate_unique(name: AnyStr, existing_names: List, prefix: AnyStr = COLUMN_
     for j in range(1, 1001):
         if new_name not in existing_names:
             return new_name
-        new_name = name + "_{}".format(j)
+        new_name = new_name + "_{}".format(j)
     raise Exception("Failed to generated a unique name")
 
 
