@@ -73,6 +73,7 @@ df = api_parallelizer(
     error_handling=error_handling,
     text_column=text_column,
     target_language=target_language,
+    source_language=source_language
 )
 output_df = formatter.format_df(df)
 output_dataset.write_with_schema(output_df)
