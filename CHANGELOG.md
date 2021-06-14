@@ -1,6 +1,6 @@
 # Changelog
 
-## [Version 1.0.1](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/releases/tag/v1.0.1) - Source language bug fix - 2021-06
+## [Version 1.0.1](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/releases/tag/v1.0.1) - Bugfix release - 2021-06
 
 - Use source language when specified instead of always auto-detecting due to being faster and possible detection mistakes
 
