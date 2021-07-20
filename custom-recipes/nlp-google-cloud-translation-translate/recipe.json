@@ -940,6 +940,24 @@
       "defaultValue": "en"
     },
     {
+      "name": "format",
+      "label": "Format",
+      "description": "Whether input format is plain text or HTML",
+      "type": "SELECT",
+      "mandatory": true,
+      "selectChoices": [
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "html",
+          "label": "HTML"
+        }
+      ],
+      "defaultValue": "text"
+    },
+    {
       "name": "separator_configuration",
       "label": "Configuration",
       "type": "SEPARATOR"

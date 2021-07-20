@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 1.0.2](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/releases/tag/v1.0.2) - Bugfix release - 2021-07
+
+- 🐛 Fixed default input format to Text instead of HTML to avoid escaping special characters e.g., ' → &#39
+
 ## [Version 1.0.1](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/releases/tag/v1.0.1) - Bugfix release - 2021-06
 
 - 🐛 Fixed incorrectly ignored source language UI parameter (previously, it was always auto-detecting)

@@ -4,7 +4,11 @@ from ratelimit import limits, RateLimitException
 from retry import retry
 
 import dataiku
-from dataiku.customrecipe import get_recipe_config, get_input_names_for_role, get_output_names_for_role
+from dataiku.customrecipe import (
+    get_recipe_config,
+    get_input_names_for_role,
+    get_output_names_for_role,
+)
 
 import json
 from google_translate_api_client import API_EXCEPTIONS, get_client
@@ -26,11 +30,14 @@ if api_configuration_preset is None or api_configuration_preset == {}:
 text_column = get_recipe_config().get("text_column")
 target_language = get_recipe_config().get("target_language", "")
 source_language = get_recipe_config().get("source_language", "").replace("auto", "")
+format = get_recipe_config().get("format", "text")
 
 # Params for parallelization
 column_prefix = "translation_api"
 parallel_workers = api_configuration_preset.get("parallel_workers")
-error_handling = ErrorHandlingEnum.FAIL if get_recipe_config().get("fail_on_error") else ErrorHandlingEnum.LOG
+error_handling = (
+    ErrorHandlingEnum.FAIL if get_recipe_config().get("fail_on_error") else ErrorHandlingEnum.LOG
+)
 
 # Params for translation
 client = get_client(api_configuration_preset.get("gcp_service_account_key"))
@@ -46,18 +53,33 @@ output_dataset = dataiku.Dataset(get_output_names_for_role("output_dataset")[0])
 validate_column_input(text_column, [col["name"] for col in input_dataset.read_schema()])
 input_df = input_dataset.get_dataframe()
 
+
 @retry((RateLimitException, OSError), delay=api_quota_period, tries=5)
 @limits(calls=api_quota_rate_limit, period=api_quota_period)
-def call_translation_api(row: Dict, text_column: AnyStr, target_language: AnyStr, source_language: AnyStr =None) -> AnyStr:
+def call_translation_api(
+    row: Dict,
+    text_column: AnyStr,
+    target_language: AnyStr,
+    source_language: AnyStr = None,
+    format: str = "text",
+) -> AnyStr:
     text = row[text_column]
     if not isinstance(text, str) or str(text).strip() == "":
         return json.dumps({})
     else:
-        response = client.translate(text, target_language, source_language=source_language)
+        response = client.translate(
+            text, target_language, source_language=source_language, format_=format
+        )
         return json.dumps(response)
 
+
 formatter = TranslationAPIFormatter(
-    input_df=input_df, input_column=text_column, target_language=target_language, source_language=source_language, column_prefix=column_prefix, error_handling=error_handling
+    input_df=input_df,
+    input_column=text_column,
+    target_language=target_language,
+    source_language=source_language,
+    column_prefix=column_prefix,
+    error_handling=error_handling,
 )
 
 # ==============================================================================
@@ -73,8 +95,10 @@ df = api_parallelizer(
     error_handling=error_handling,
     text_column=text_column,
     target_language=target_language,
-    source_language=source_language
+    source_language=source_language,
+    format=format,
 )
+
 output_df = formatter.format_df(df)
 output_dataset.write_with_schema(output_df)
 
