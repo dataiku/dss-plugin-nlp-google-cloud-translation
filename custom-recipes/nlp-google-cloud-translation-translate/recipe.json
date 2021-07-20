@@ -948,7 +948,7 @@
       "selectChoices": [
         {
           "value": "text",
-          "label": "text"
+          "label": "Text"
         },
         {
           "value": "html",
