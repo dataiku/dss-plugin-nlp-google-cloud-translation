@@ -952,7 +952,7 @@
         },
         {
           "value": "html",
-          "label": "html"
+          "label": "HTML"
         }
       ],
       "defaultValue": "text"
