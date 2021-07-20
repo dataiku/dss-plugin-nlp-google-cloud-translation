@@ -941,8 +941,8 @@
     },
     {
       "name": "format",
-      "label": "Input format",
-      "description": "Whether input format is plain text or html.",
+      "label": "Format",
+      "description": "Whether input format is plain text or HTML",
       "type": "SELECT",
       "mandatory": true,
       "selectChoices": [
