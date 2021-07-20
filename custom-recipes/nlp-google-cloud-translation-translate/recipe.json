@@ -944,7 +944,7 @@
       "label": "Input format",
       "description": "Whether input format is plain text or html.",
       "type": "SELECT",
-      "mandatory": false,
+      "mandatory": true,
       "selectChoices": [
         {
           "value": "text",
