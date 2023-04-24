@@ -1,6 +1,6 @@
 {
     "id": "nlp-google-cloud-translation",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "meta": {
         "label": "Google Cloud Translation",
         "category": "Natural Language Processing",
