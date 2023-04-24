@@ -1,5 +1,9 @@
 # Changelog
 
+## [Version 1.0.3](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/releases/tag/v1.0.3) - Support release - 2023-04
+
+- ✨ Added support for Python 3.8-3.11
+
 ## [Version 1.0.2](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/releases/tag/v1.0.2) - Bugfix release - 2021-07
 
 - 🐛 Fixed default input format to Text instead of HTML to avoid escaping special characters e.g., ' → &#39
