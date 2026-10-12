@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.1.0 - Enhancement release - 2026-10-12
+
+- Added supported Python versions: 3.12, 3.13, 3.14
+- Makefile cleanup: release_info.json lines removed
+
 ## [Version 1.0.3](https://github.com/dataiku/dss-plugin-nlp-google-cloud-translation/releases/tag/v1.0.3) - Support release - 2023-04
 
 - ✨ Added support for Python 3.8-3.11
